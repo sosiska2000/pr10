@@ -13,5 +13,12 @@ namespace APIGigaChat
         static void Main(string[] args)
         {
         }
+        public static async Task<string> GetToken(string rqUID, string bearer)
+        {
+            string ReturnToken = null;
+            string Url = "";
+
+            return ReturnToken;
+        }
     }
 }
