@@ -17,6 +17,20 @@ namespace APIGigaChat
         static async Task Main(string[] args)
         {
             string Token = await GetToken(ClientId, AutorizationKey);
+
+            if(Token == null)
+            {
+                Console.WriteLine("не удалось получить токен");
+                return;
+            }
+            while (true)
+            {
+                Console.WriteLine("Сообщение");
+                string Message = Console.ReadLine();
+
+                ResponseMessage Answer = await GetAnswer(Token, Message);
+                Console.WriteLine("Ответ: " + Answer.choices[0].message.content);
+            }
         }
         public static async Task<string> GetToken(string rqUID, string bearer)
         {
@@ -55,11 +69,11 @@ namespace APIGigaChat
             }
             return ReturnToken;
         }
-        public static async Task<ResponseMessage> GetAnswer(string token, string message)
+        public static async Task<ResponseMessage> GetAnswer(string token, string user_message)
         {
             ResponseMessage responseMessage = null;
 
-            string Url = "https://ngw.devices.sberbank.ru:9443/api/v2/oauth";
+            string Url = "https://gigachat.devices.sberbank.ru/api/v1/chat/completions";
 
             using (HttpClientHandler Handler = new HttpClientHandler())
             {
