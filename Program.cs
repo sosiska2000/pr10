@@ -10,8 +10,9 @@ namespace APIGigaChat
     {
         public static string ClientId = "";
         public static string AutorizationKey = "";
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            string Token = await GetToken(ClientId, AutorizationKey);
         }
         public static async Task<string> GetToken(string rqUID, string bearer)
         {
