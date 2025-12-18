@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using APIGigaChat.Models;
 using APIGigaChat.Models.Response;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace APIGigaChat
 {
@@ -50,6 +54,53 @@ namespace APIGigaChat
                 }
             }
             return ReturnToken;
+        }
+        public static async Task<ResponseMessage> GetAnswer(string token, string message)
+        {
+            ResponseMessage responseMessage = null;
+
+            string Url = "https://ngw.devices.sberbank.ru:9443/api/v2/oauth";
+
+            using (HttpClientHandler Handler = new HttpClientHandler())
+            {
+                Handler.ServerCertificateCustomValidationCallback = (message, sert, chain, SslPolicyErrors) => true;
+
+                using (HttpClient Client = new HttpClient(Handler))
+                {
+                    HttpRequestMessage HttpRequest = new HttpRequestMessage(HttpMethod.Post, Url);
+
+                    HttpRequest.Headers.Add("Accept", "application/json");
+                    HttpRequest.Headers.Add("Authorization", $"Bearer{token}");
+
+                    Request DataRequest = new Request
+                    {
+                        model = "GigaChat",
+                        stream = false,
+                        repetition_penalty = 1,
+                        messages = new List<Request.Message>()
+                        {
+                            new Request.Message()
+                            {
+                            role = "user",
+                            content = user_message
+                            }
+                        }
+                    };
+
+                    string JsonContent = JsonConvert.SerializeObject(DataRequest);
+
+                    HttpRequest.Content = new StringContent(JsonContent, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage Response = await Client.SendAsync(HttpRequest);
+
+                    if (Response.IsSuccessStatusCode)
+                    {
+                        string ResponseContent = await Response.Content.ReadAsStringAsync();
+                        responseMessage = JsonConvert.DeserializeObject<ResponseMessage>(ResponseContent);
+                    }
+                }
+            }
+            return responseMessage;
         }
     }
 }
