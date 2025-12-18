@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGigaChat", "APIGigaChat.csproj", "{CDD4D886-0180-4934-8589-6C2AE5D22602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexGPT", "..\YandexGPT\YandexGPT.csproj", "{48113A8A-A2AB-4BB2-BFD4-AF59D59768E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{CDD4D886-0180-4934-8589-6C2AE5D22602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDD4D886-0180-4934-8589-6C2AE5D22602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDD4D886-0180-4934-8589-6C2AE5D22602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48113A8A-A2AB-4BB2-BFD4-AF59D59768E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48113A8A-A2AB-4BB2-BFD4-AF59D59768E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48113A8A-A2AB-4BB2-BFD4-AF59D59768E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48113A8A-A2AB-4BB2-BFD4-AF59D59768E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2B6D4E3-7292-41D6-B4C6-0601CB344D25}
 	EndGlobalSection
 EndGlobal
