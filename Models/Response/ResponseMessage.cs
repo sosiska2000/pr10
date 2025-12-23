@@ -1,32 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using static APIGigaChat.Models.Request;
+﻿using System; // Использование базовых классов .NET
+using System.Collections.Generic; // Использование коллекций List<T>
+using System.Linq; // Использование LINQ-методов
+using System.Reflection.Emit; // Пространство имен для генерации кода (возможно не используется)
+using System.Text; // Использование классов для работы с кодировкой
+using System.Threading.Tasks; // Использование асинхронного программирования
+using static APIGigaChat.Models.Request; // Статический импорт класса Request для прямого использования Message
 
-namespace APIGigaChat.Models.Response
+namespace APIGigaChat.Models.Response // Пространство имен для моделей ответов API GigaChat
 {
+    // Основной класс, представляющий ответ от API GigaChat на запрос чата
     public class ResponseMessage
     {
-        public List<Choice> choices {  get; set; }
-        public int created {  get; set; }
+        // Список вариантов ответов, сгенерированных моделью
+        // Обычно содержит один элемент, но может содержать несколько вариантов при соответствующей настройке
+        public List<Choice> choices { get; set; }
+
+        // Временная метка создания ответа в формате Unix time (секунды с 1 января 1970 года)
+        // Позволяет определить, когда был сгенерирован ответ
+        public int created { get; set; }
+
+        // Название модели ИИ, которая использовалась для генерации ответа
+        // Может отличаться от запрошенной модели, если сервер автоматически выбрал другую
         public string model { get; set; }
+
+        // Тип объекта в ответе. Для чат-запросов обычно имеет значение "chat.completion"
+        // Символ @ используется потому что "object" является зарезервированным словом в C#
         public string @object { get; set; }
+
+        // Информация об использовании токенов для данного запроса
+        // Содержит статистику по количеству использованных токенов
         public Usage usage { get; set; }
     }
+
+    // Класс для хранения информации об использовании токенов
     public class Usage
     {
-        public int promt_tokens {  get; set; }
-        public int copmpletion_tokens { get; set; }
+        // Количество токенов, использованных в промпте (входном сообщении/запросе)
+        // Токены - это части текста, на которые разбивается входной и выходной текст
+        public int promt_tokens { get; set; } // Опечатка в названии: должно быть "prompt_tokens"
+
+        // Количество токенов, использованных в ответе (сгенерированном тексте)
+        public int copmletion_tokens { get; set; } // Опечатка в названии: должно быть "completion_tokens"
+
+        // Общее количество токенов: промпт + ответ
+        // Используется для подсчета стоимости запроса и лимитов API
         public int total_tokens { get; set; }
-        public int precached_promt_tokens { get; set; }
+
+        // Количество токенов, которые были предварительно кэшированы
+        // Представляет токены, которые уже были обработаны в предыдущих запросах
+        public int precached_promt_tokens { get; set; } // Опечатка в названии: должно быть "precached_prompt_tokens"
     }
+
+    // Класс, представляющий один вариант ответа от модели
     public class Choice
     {
+        // Объект сообщения, содержащий ответ от ассистента
+        // Использует класс Message из пространства имен запросов (Request.Message)
+        // Содержит роль ("assistant") и текст ответа
         public Request.Message message { get; set; }
-        public int index {  get; set; }
-        public string finish_reason {  get; set; }
+
+        // Индекс данного варианта ответа в списке choices
+        // Начинается с 0. Если choices содержит несколько вариантов, у каждого будет свой индекс
+        public int index { get; set; }
+
+        // Причина завершения генерации ответа
+        // Возможные значения:
+        // - "stop": модель завершила генерацию естественным образом
+        // - "length": генерация остановлена из-за достижения максимальной длины
+        // - "content_filter": генерация остановлена фильтром контента
+        // - "null": причина не указана
+        public string finish_reason { get; set; }
     }
 }

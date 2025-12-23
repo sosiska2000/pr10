@@ -1,14 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System; // Использование базовых классов .NET
+using System.Collections.Generic; // Использование коллекций List<T> (хотя в этом классе не используется)
+using System.Linq; // Использование LINQ-методов (хотя в этом классе не используется)
+using System.Text; // Использование классов для работы с кодировкой (хотя в этом классе не используется)
+using System.Threading.Tasks; // Использование асинхронного программирования (хотя в этом классе не используется)
 
-namespace APIGigaChat.Models.Response
+namespace APIGigaChat.Models.Response // Пространство имен для моделей ответов API GigaChat
 {
+    // Класс, представляющий ответ от сервера авторизации при запросе токена доступа
+    // Этот объект десериализуется из JSON-ответа, полученного от конечной точки /oauth
     public class ResponseToken
     {
+        // Токен доступа (access token), который используется для авторизации последующих запросов к API
+        // Это строка в формате JWT (JSON Web Token), которая содержит информацию о правах доступа
+        // Должен передаваться в заголовке Authorization: Bearer {access_token} для всех API-запросов
         public string access_token { get; set; }
-        public string expires_at {  get; set; }
+
+        // Время истечения срока действия токена в формате строки
+        // Указывает, до какого момента токен будет действителен
+        // Может быть в различных форматах (например: "2023-12-31T23:59:59Z" или timestamp)
+        // После истечения этого срока необходимо запросить новый токен
+        public string expires_at { get; set; }
     }
 }
