@@ -16,7 +16,7 @@ namespace APIGigaChat // Объявление пространства имен 
         public static string ClientId = "019b2b50-ff41-77e2-b0f5-23e0ba29e4ef";
 
         // Ключ авторизации в формате base64 для получения токена доступа
-        public static string AutorizationKey = "MDE5YjJiNTAtZmY0MS03N2UyLWIwZjUtMjNlMGJhMjllNGVmOmZiYjEwNTdmLWM2ZmUtNDAwYS04NThjLTNlMTA2NjRmYTVkMA==";
+        public static string AutorizationKey = "MDE5YjJiNTAtZmY0MS03N2UyLWIwZjUtMjNlMGJhMjllNGVmOjdkMzViZmFmLTUzNWItNDg0ZS04NDIyLWY0ZmYwNzI2OGIzMg==";
 
         // Список для хранения истории сообщений диалога (сообщения пользователя и ассистента)
         private static List<Request.Message> chatHistory = new List<Request.Message>();
